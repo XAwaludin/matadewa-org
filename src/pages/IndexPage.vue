@@ -73,8 +73,9 @@
                                 font-size="52px"
                                 color="teal"
                                 text-color="white"
-                                icon="directions"
-                            />
+                            >
+                                <q-img src="~assets/cakradewa.jpeg" />
+                            </q-avatar>
                             <div
                                 class="font-quicksand text-h6 text-weight-medium"
                             >
@@ -95,13 +96,25 @@
                 </div>
                 <div class="col-md-8 col-sm-12">
                     <div class="font-quicksand text-body1 text-center">
-                        MATADEWA merupakan wadah bagi para Mahasiswa kecamatan
-                        Wanasalam untuk mengamalkan pengetahuannya kepada
-                        Masyarakat, yang berfokus pada Pendidikan dan Sosial.
-                        Berdiri pada 21 September 2020 atas dasar keinginan yang
-                        kuat untuk berkontribusi pada tanah kelahiran.
+                        Wanasalam adalah sebuah kecamatan di Kabupaten Lebak,
+                        Provinsi Banten, Indonesia. Sebagian besar mata
+                        pencaharian warganya adalah di sektor perikanan dan
+                        pertanian.
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-8">
+            <div class="q-pa-md q-gutter-md">
+                <q-card>
+                    <q-avatar
+                        size="100px"
+                        font-size="52px"
+                        color="teal"
+                        text-color="white"
+                        icon="directions"
+                    />
+                </q-card>
             </div>
         </div>
     </q-page>
