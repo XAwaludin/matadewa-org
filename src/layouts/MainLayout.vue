@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="hHh LpR fFf">
+    <q-layout view="hHh LpR fff">
         <q-header elevated class="bg-dark text-white">
             <q-toolbar>
                 <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
@@ -18,8 +18,21 @@
         </q-drawer>
 
         <q-page-container>
-            <router-view />
+            <router-view class="q-mb-md" />
         </q-page-container>
+        <q-footer class="bg-dark text-white">
+            <div class="row justify-center">
+                <div class="col-sm-12 col-md-8 font-orbitron text-center">
+                    <q-avatar size="250px">
+                        <img src="~assets/logo-white.png" />
+                    </q-avatar>
+                    <div class="text-h5">MATADEWA</div>
+                    <div class="text-caption font-quicksand">
+                        @Copyright 2020-2022 MATADEWA
+                    </div>
+                </div>
+            </div>
+        </q-footer>
     </q-layout>
 </template>
 

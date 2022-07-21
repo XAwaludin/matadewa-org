@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="row wrap justify-center q-pa-md q-gutter-sm">
+            <div class="row reverse justify-center q-pa-md q-gutter-sm">
                 <div class="col-sm-12 col-md-4">
                     <q-card>
                         <q-card-section class="text-center">
@@ -59,9 +59,22 @@
                             <q-separator />
                         </q-card-section>
                         <q-card-section>
-                            MATADEWA Class merupakan wadah remaja dan pelajar
-                            SMP-SMA untuk berbagi pengetahuan serta mempelajari
-                            hal baru di luar sekolah.
+                            Matadewa Class adalah program dari komunitas
+                            mahasiswa taktis demokratis wanasalam atau matadewa.
+                            Matadewa Class merupakan kelas yang menjadi taman
+                            Siswa bagi generasi muda di kecamatan wanasalam,
+                            matadewa Class terdiri dari beberapa kelas yang
+                            disesuaikan dengan kebutuhan generasi muda saat ini
+                            dan kedepannya Matadewa Class di isi dengan beberapa
+                            class diantaranya adalah perpustakaan digital yang
+                            di lengkapi dengan kajian tokoh bedah buku dan lain
+                            lain juga terdapat kelas digital seperti penguasaan
+                            Microsoft Office word Excel, Power Point dan kelas
+                            programer, di Matadewa Class juga terdapat kelas
+                            bahasa seperti bahasa Inggris , jepang, Korea dan
+                            Arab Dan masih banyak lagi kelas-kelas yang
+                            disediakan, seperti kelas sosial, kesenian dan
+                            keagamaan juga kelas Advokat.
                         </q-card-section>
                     </q-card>
                 </div>
@@ -81,6 +94,19 @@
                             >
                                 CAKRADEWA
                             </div>
+                            <q-separator />
+                        </q-card-section>
+                        <q-card-section>
+                            Cendikia Remaja Demokratis Wanasalam atau yang
+                            disebut dengan cakradewa adalah salah satu komunitas
+                            remaja yang ada di kecamatan wanasalam kabupaten
+                            Lebak provinsi Banten, cakradewa juga merupakan
+                            sayap juang dari komunitas mahasiswa taktis
+                            demokratis wanasalam, Cakradewa mewadahi remaja
+                            remaja yang ada di kecamatan wanasalam yang memiliki
+                            visi dan tujuan yang sama yakni remaja-remaja yang
+                            peduli terhadap masa depan, dirinya, orang lain dan
+                            lingkungan sekitarnya.
                         </q-card-section>
                     </q-card>
                 </div>
@@ -104,17 +130,40 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-8">
-            <div class="q-pa-md q-gutter-md">
-                <q-card>
-                    <q-avatar
-                        size="100px"
-                        font-size="52px"
-                        color="teal"
-                        text-color="white"
-                        icon="directions"
-                    />
-                </q-card>
+        <div class="col-12">
+            <div class="row justify-center q-gutter-md">
+                <div class="col-5">
+                    <q-card>
+                        <q-card-section class="text-center">
+                            <q-avatar
+                                color="dark"
+                                text-color="white"
+                                icon="fas fa-city"
+                            />
+                            <div class="text-h6">13 Desa / Kelurahan</div>
+                        </q-card-section>
+                    </q-card>
+                </div>
+                <div class="col-5">
+                    <q-card>
+                        <q-card-section class="text-center">
+                            <q-avatar
+                                color="dark"
+                                text-color="white"
+                                icon="fas fa-person-arrow-up-from-line"
+                            />
+                            <div class="text-h6">52,720 Penduduk</div>
+                        </q-card-section>
+                    </q-card>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 q-mt-md">
+            <div class="row justify-center q-gutter-md">
+                <desa-card nama="Bejod" penduduk="270"></desa-card>
+                <desa-card nama="Bejod" penduduk="270"></desa-card>
+                <desa-card nama="Bejod" penduduk="270"></desa-card>
+                <desa-card nama="Bejod" penduduk="270"></desa-card>
             </div>
         </div>
     </q-page>
@@ -138,10 +187,13 @@
 import { defineComponent } from "vue";
 import { loadFull } from "tsparticles";
 import particlesConfig from "assets/particlesjs-config.json";
-// import { tsParticles } from "tsparticles-engine";
+import DesaCard from "components/DesaCard.vue";
 
 export default defineComponent({
     name: "IndexPage",
+    components: {
+        DesaCard,
+    },
     setup() {},
     data() {
         return {
