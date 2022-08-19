@@ -140,7 +140,10 @@
                                 text-color="white"
                                 icon="fas fa-city"
                             />
-                            <div class="text-h6">13 Desa / Kelurahan</div>
+                            <div class="text-h6">
+                                {{ dataKecamatan.listDesa.length }} Desa /
+                                Kelurahan
+                            </div>
                         </q-card-section>
                     </q-card>
                 </div>
@@ -152,7 +155,9 @@
                                 text-color="white"
                                 icon="fas fa-person-arrow-up-from-line"
                             />
-                            <div class="text-h6">52,720 Penduduk</div>
+                            <div class="text-h6">
+                                {{ dataKecamatan.totalPenduduk }} Penduduk
+                            </div>
                         </q-card-section>
                     </q-card>
                 </div>
@@ -160,10 +165,13 @@
         </div>
         <div class="col-12 q-mt-md">
             <div class="row justify-center q-gutter-md">
-                <desa-card nama="Bejod" penduduk="270"></desa-card>
-                <desa-card nama="Bejod" penduduk="270"></desa-card>
-                <desa-card nama="Bejod" penduduk="270"></desa-card>
-                <desa-card nama="Bejod" penduduk="270"></desa-card>
+                <desa-card
+                    v-for="desa in dataKecamatan.listDesa"
+                    :key="desa.id"
+                    :nama="desa.nama"
+                    :penduduk="desa.penduduk_desa.total.toString()"
+                    :kode="desa.kode"
+                ></desa-card>
             </div>
         </div>
     </q-page>
@@ -186,6 +194,7 @@
 <script>
 import { defineComponent } from "vue";
 import { loadFull } from "tsparticles";
+import { api } from "boot/axios";
 import particlesConfig from "assets/particlesjs-config.json";
 import DesaCard from "components/DesaCard.vue";
 
@@ -194,16 +203,49 @@ export default defineComponent({
     components: {
         DesaCard,
     },
-    setup() {},
     data() {
         return {
             options: particlesConfig,
+            dataKecamatan: {
+                totalPenduduk: 0,
+                listDesa: [],
+            },
         };
     },
     methods: {
         async particlesInit(engine) {
             await loadFull(engine);
         },
+
+        fetchDataKecamatan() {
+            api.get("/desa").then((res1) => {
+                const response = res1.data;
+                if (response.success) {
+                    response.results.forEach((desa) => {
+                        let tmpDesa = {
+                            id: desa.id,
+                            nama: desa.nama,
+                            kode: desa.kode,
+                            penduduk_desa: {
+                                total:
+                                    desa.penduduk_desa[0].lakiLaki +
+                                    desa.penduduk_desa[0].perempuan,
+                                laki_laki: desa.penduduk_desa[0].lakiLaki,
+                                perempuan: desa.penduduk_desa[0].perempuan,
+                            },
+                            profil_desa: desa.profile_desa[0],
+                        };
+                        this.dataKecamatan.totalPenduduk +=
+                            tmpDesa.penduduk_desa.total;
+
+                        this.dataKecamatan.listDesa.push(tmpDesa);
+                    });
+                }
+            });
+        },
+    },
+    mounted() {
+        this.fetchDataKecamatan();
     },
 });
 </script>

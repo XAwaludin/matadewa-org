@@ -4,12 +4,14 @@
             <q-toolbar>
                 <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
-                <q-toolbar-title class="font-orbitron">
-                    <q-avatar>
-                        <img src="~assets/logo-white.png" />
-                    </q-avatar>
-                    MATADEWA
-                </q-toolbar-title>
+                <q-btn to="/" flat>
+                    <q-toolbar-title class="font-orbitron">
+                        <q-avatar>
+                            <img src="~assets/logo-white.png" />
+                        </q-avatar>
+                        MATADEWA
+                    </q-toolbar-title>
+                </q-btn>
             </q-toolbar>
         </q-header>
 
