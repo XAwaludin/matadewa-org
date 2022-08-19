@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Matadewa</string>
+    <string name="title_activity_main">Matadewa</string>
+    <string name="package_name">org.matadewa</string>
+    <string name="custom_url_scheme">org.matadewa</string>
+</resources>
