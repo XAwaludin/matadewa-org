@@ -6,7 +6,7 @@
             <div class="text-caption text-grey">{{ penduduk }} Penduduk</div>
         </q-card-section>
         <q-card-actions align="right">
-            <q-btn color="dark">Lihat</q-btn>
+            <q-btn :to="'/desa/' + kode" color="dark">Lihat</q-btn>
         </q-card-actions>
     </q-card>
 </template>
@@ -22,6 +22,10 @@ export default {
         penduduk: {
             type: String,
             default: "-",
+        },
+        kode: {
+            type: String,
+            required: true,
         },
     },
     setup() {
