@@ -104,11 +104,7 @@
                 </q-card>
             </div>
             <div class="col-xs-12 col-md-8">
-                <q-card class="q-ma-sm">
-                    <q-card-section>
-                        <div class="text-h6">Anggaran Desa</div>
-                    </q-card-section>
-                </q-card>
+                <anggaran-desa-vue :data="anggaran_desa" class="q-ma-sm" />
             </div>
         </div>
     </q-page>
@@ -117,9 +113,13 @@
 <script scoped>
 import { api } from "boot/axios";
 import { useQuasar } from "quasar";
+import AnggaranDesaVue from "components/AnggaranDesa";
 
 export default {
     name: "DesaProfilePage",
+    components: {
+        AnggaranDesaVue,
+    },
     setup() {
         const $q = useQuasar();
         return {
@@ -162,35 +162,36 @@ export default {
     methods: {
         getDesaInfo(kode) {
             api.get(`/desa/${kode}`).then((res) => {
-                let response = res.data.results[0];
-                this.desaInfo.kode = response.kode;
-                this.desaInfo.nama = response.nama;
-                this.desaInfo.imgCarousel = response.imgCarousel.split("|");
-                this.slide = this.desaInfo.imgCarousel[0];
+                if (res.data.results.length !== 0) {
+                    let response = res.data.results[0];
+                    this.desaInfo.kode = response.kode;
+                    this.desaInfo.nama = response.nama;
+                    this.desaInfo.imgCarousel = response.imgCarousel.split("|");
+                    this.slide = this.desaInfo.imgCarousel[0];
 
-                let profileDesa = response.profile_desa[0];
-                this.profile_desa.jumlah_penduduk = profileDesa.jumlahPenduduk;
-                this.profile_desa.sarana = JSON.parse(profileDesa.sarana);
-                this.profile_desa.kesejahteraan = JSON.parse(
-                    profileDesa.kesejahteraan
-                );
-                this.profile_desa.luas = profileDesa.luas;
-                this.profile_desa.koordinat = JSON.parse(profileDesa.koordinat);
-                this.profile_desa.updated = new Date(profileDesa.updated)
-                    .toISOString()
-                    .slice(0, 19)
-                    .replace("T", " ");
+                    let profileDesa = response.profile_desa[0];
+                    this.profile_desa.jumlah_penduduk =
+                        profileDesa.jumlahPenduduk;
+                    this.profile_desa.sarana = JSON.parse(profileDesa.sarana);
+                    this.profile_desa.kesejahteraan = JSON.parse(
+                        profileDesa.kesejahteraan
+                    );
+                    this.profile_desa.luas = profileDesa.luas;
+                    this.profile_desa.koordinat = JSON.parse(
+                        profileDesa.koordinat
+                    );
+                    this.profile_desa.updated = new Date(profileDesa.updated)
+                        .toISOString()
+                        .slice(0, 19)
+                        .replace("T", " ");
 
-                let pendudukDesa = response.penduduk_desa[0];
-                this.penduduk_desa.laki_laki = pendudukDesa.lakiLaki;
-                this.penduduk_desa.perempuan = pendudukDesa.perempuan;
-                this.penduduk_desa.total =
-                    pendudukDesa.lakiLaki + pendudukDesa.perempuan;
-
-                let anggaranDesa = response.anggaran_desa;
-                anggaranDesa.forEach((anggaran) => {
-                    this.anggaran_desa.push(anggaran);
-                });
+                    let pendudukDesa = response.penduduk_desa[0];
+                    this.penduduk_desa.laki_laki = pendudukDesa.lakiLaki;
+                    this.penduduk_desa.perempuan = pendudukDesa.perempuan;
+                    this.penduduk_desa.total =
+                        pendudukDesa.lakiLaki + pendudukDesa.perempuan;
+                    this.anggaran_desa = response.anggaran_desa;
+                }
             });
         },
 
