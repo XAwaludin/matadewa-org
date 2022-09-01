@@ -1,5 +1,9 @@
 <template>
     <q-card>
+        <q-banner inline-actions class="text-white bg-warning">
+            Fitur ini sedang dalam pengembangan, data yang di tampilkan belum di
+            validasi
+        </q-banner>
         <q-card-section>
             <div class="row">
                 <div class="col">
