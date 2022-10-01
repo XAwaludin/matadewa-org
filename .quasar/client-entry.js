@@ -12,13 +12,15 @@
  **/
 
 
-import { createSSRApp } from 'vue'
+import { createApp } from 'vue'
 
 
 
 
 
 
+
+import '@quasar/extras/mdi-v6/mdi-v6.css'
 
 import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
 
@@ -46,7 +48,7 @@ import quasarUserOptions from './quasar-user-options.js'
 
 
 
-console.info('[Quasar] Running SSR.')
+console.info('[Quasar] Running SPA.')
 
 
 
@@ -121,20 +123,20 @@ async function start ({
   
 
   
+
     
-    // wait until router has resolved all async before hooks
-    // and async components...
-    router.isReady().then(() => {
-      
+
+    
       app.mount('#q-app')
-    })
+    
+
     
 
   
 
 }
 
-createQuasarApp(createSSRApp, quasarUserOptions)
+createQuasarApp(createApp, quasarUserOptions)
 
   .then(app => {
     return Promise.all([

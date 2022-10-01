@@ -17,6 +17,26 @@
 
         <q-drawer v-model="leftDrawerOpen" side="left" bordered>
             <!-- drawer content -->
+            <q-list>
+                <q-item clicable to="/" active-class="bg-dark text-white">
+                    <q-item-section avatar>
+                        <q-icon name="mdi-home" />
+                    </q-item-section>
+                    <q-item-section>Home</q-item-section>
+                </q-item>
+                <q-expansion-item icon="mdi-city" label="Desa" default-opened>
+                    <q-item
+                        :inset-level="1"
+                        clickable
+                        v-for="desa in desas"
+                        :key="desa.id"
+                        active-class="bg-dark text-white"
+                        :to="`/desa/${desa.kode}`"
+                    >
+                        <q-item-section>{{ desa.nama }}</q-item-section>
+                    </q-item>
+                </q-expansion-item>
+            </q-list>
         </q-drawer>
 
         <q-page-container>
@@ -47,17 +67,31 @@
 
 <script>
 import { ref } from "vue";
+import { api } from "src/boot/axios";
 
 export default {
-    setup() {
-        const leftDrawerOpen = ref(false);
-
+    data() {
         return {
-            leftDrawerOpen,
-            toggleLeftDrawer() {
-                leftDrawerOpen.value = !leftDrawerOpen.value;
-            },
+            leftDrawerOpen: false,
+            desas: [],
         };
+    },
+
+    mounted() {
+        this.fetchDesa();
+    },
+
+    methods: {
+        fetchDesa() {
+            this.desas = [];
+            api.get("/desa").then((response) => {
+                let res = response.data;
+                this.desas = res.results;
+            });
+        },
+        toggleLeftDrawer() {
+            this.leftDrawerOpen = !this.leftDrawerOpen;
+        },
     },
 };
 </script>
