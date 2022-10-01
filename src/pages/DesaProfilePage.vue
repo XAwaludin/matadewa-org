@@ -206,5 +206,10 @@ export default {
     created() {
         this.getDesaInfo(this.$route.params.kode);
     },
+    watch: {
+        "$route.params.kode"() {
+            this.getDesaInfo(this.$route.params.kode);
+        },
+    },
 };
 </script>
