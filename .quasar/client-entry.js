@@ -12,7 +12,7 @@
  **/
 
 
-import { createApp } from 'vue'
+import { createSSRApp } from 'vue'
 
 
 
@@ -47,8 +47,6 @@ import quasarUserOptions from './quasar-user-options.js'
 
 
 
-
-console.info('[Quasar] Running SPA.')
 
 
 
@@ -123,20 +121,20 @@ async function start ({
   
 
   
-
     
-
-    
+    // wait until router has resolved all async before hooks
+    // and async components...
+    router.isReady().then(() => {
+      
       app.mount('#q-app')
-    
-
+    })
     
 
   
 
 }
 
-createQuasarApp(createApp, quasarUserOptions)
+createQuasarApp(createSSRApp, quasarUserOptions)
 
   .then(app => {
     return Promise.all([

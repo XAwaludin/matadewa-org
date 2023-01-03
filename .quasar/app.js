@@ -15,7 +15,7 @@
 
 import { Quasar } from 'quasar'
 import { markRaw } from 'vue'
-import RootComponent from 'app/src/App.vue'
+import AppComponent from 'app/src/App.vue'
 
 import createStore from 'app/src/stores/index'
 import createRouter from 'app/src/router/index'
@@ -23,37 +23,62 @@ import createRouter from 'app/src/router/index'
 
 
 
+import { defineComponent, h, onMounted, getCurrentInstance } from 'vue'
+const RootComponent = defineComponent({
+  name: 'AppWrapper',
+  setup (props) {
+    onMounted(() => {
+      
+
+      
+
+      
+      const { proxy: { $q } } = getCurrentInstance()
+      $q.onSSRHydrated !== void 0 && $q.onSSRHydrated()
+      
+    })
+
+    return () => h(AppComponent, props)
+  }
+})
 
 
 
-export default async function (createAppFn, quasarUserOptions) {
+
+export default async function (createAppFn, quasarUserOptions, ssrContext) {
   // Create the app instance.
   // Here we inject into it the Quasar UI, the router & possibly the store.
   const app = createAppFn(RootComponent)
 
   
-  app.config.performance = true
-  
 
-  app.use(Quasar, quasarUserOptions)
+  app.use(Quasar, quasarUserOptions, ssrContext)
 
   
 
   
     const store = typeof createStore === 'function'
-      ? await createStore({})
+      ? await createStore({ssrContext})
       : createStore
 
     
       app.use(store)
 
       
+        // prime the store with server-initialized state.
+        // the state is determined during SSR and inlined in the page markup.
+        if (typeof window !== 'undefined' && window.__INITIAL_STATE__ !== void 0) {
+          store.state.value = window.__INITIAL_STATE__
+          // for security reasons, we'll delete this
+          delete window.__INITIAL_STATE__
+        }
+      
     
   
 
   const router = markRaw(
     typeof createRouter === 'function'
-      ? await createRouter({store})
+      ? await createRouter({ssrContext,store})
       : createRouter
   )
 
